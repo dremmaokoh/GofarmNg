@@ -81,7 +81,7 @@ exports.signUp = async (req, res, next) => {
       html: `<h2> ${user.firstname} ${user.lastname} </h2> 
               <h2> Thank you for registering on our site  </h2> 
              <h4> Please verify your mail to continue..... </h4>
-            <a "${process.env.CLIENT_URL}/api/verify-email?token=${user.emailtoken}">Verify Your Email</a>   `,
+            <a href="${process.env.CLIENT_URL}/api/verify-email?token=${user.emailtoken}">Verify Your Email</a>   `,
             
     };
 
@@ -97,7 +97,6 @@ exports.signUp = async (req, res, next) => {
       new_user,
     };
     return res.status(201).json(user_info);
-    //    res.redirect ('/api/login')
   } catch (error) {
     next(error);
   }
@@ -193,7 +192,7 @@ exports.forgotPassword = async (req, res, next) => {
       html: `<h2> ${user.firstname} ${user.lastname} </h2> 
               <h2> Thank you for using GofarmNg  </h2> 
              <h4> Please click on the link to continue..... </h4>
-             <a href="${process.env.CLIENT_URL}/api/reset-password/${user._id}/${token}">Reset Your Password</a>   `,
+             <a href="${process.env.CLIENT_URL}/api/reset-password/${user._id}/${token}">Reset Your Password</a>`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
