@@ -81,7 +81,7 @@ exports.signUp = async (req, res, next) => {
       html: `<h2> ${user.firstname} ${user.lastname} </h2> 
               <h2> Thank you for registering on our site  </h2> 
              <h4> Please verify your mail to continue..... </h4>
-            <a https://gofarmng.herokuapp.com/api/verify-email?token=${user.emailtoken}">Verify Your Email</a>   `,
+            <a "${process.env.CLIENT_URL}/api/verify-email?token=${user.emailtoken}">Verify Your Email</a>   `,
             
     };
 
@@ -193,7 +193,7 @@ exports.forgotPassword = async (req, res, next) => {
       html: `<h2> ${user.firstname} ${user.lastname} </h2> 
               <h2> Thank you for using GofarmNg  </h2> 
              <h4> Please click on the link to continue..... </h4>
-             <a href="https://gofarmng.herokuapp.com/api/reset-password/${user._id}/${token}">Reset Your Password</a>   `,
+             <a href="${process.env.CLIENT_URL}/api/reset-password/${user._id}/${token}">Reset Your Password</a>   `,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
