@@ -6,9 +6,9 @@ require("dotenv").config();
 const path = require("path");
 const connectDB = require("./config/db.js");
 const user_router = require("./routes/routes.user");
-const ejs = require('ejs');
-const cookieparser = require ('cookie-parser')
-
+const ejs = require("ejs");
+const cookieparser = require("cookie-parser");
+const session = require('express-session');
 
 //Connecting to database
 const port = process.env.PORT || 7895;
@@ -19,17 +19,24 @@ server.use(morgan("dev"));
 server.use(cookieparser());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-server.set('view engine', 'ejs');
-server.use(express.static(path.join(__dirname, 'views')));
+server.set("view engine", "ejs");
+server.use(express.static(path.join(__dirname, "views")));
 
+server.use(
+  session({
+  secret: process.env.KEYS,
+  resave: false,
+  saveUninitialized: false,
+ cookie: { httpOnly: true,
+           secure: false,
+           maxAge: 24 * 60 * 60 * 1000,
+}
+}))
 
-server.get('/',(req,res)=>{
-  res.render('home')
-  });
-
+server.get("/", (req, res) => {
+  res.render("home");
+});
 server.use("/api", user_router);
-
-
 
 //Listening to server
 server.listen(port, () => {

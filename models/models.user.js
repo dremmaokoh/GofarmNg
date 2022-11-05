@@ -32,8 +32,7 @@ const userSchema = new mongoose.Schema(
           throw new Error("Passwords cannot contain 'pass'");
         }
       },
-      },
-
+    },
 
     emailtoken: {
       type: String,
@@ -43,8 +42,8 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
     },
     date: {
-      type:Date,
-      default:Date.now()
+      type: Date,
+      default: Date.now(),
     },
   },
   {
