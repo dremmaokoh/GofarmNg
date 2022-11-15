@@ -6,7 +6,7 @@ const {
   forgotPassword,
   resetPassword,
   resetPasswordpage,
-  switchfarmer,
+  switchtoSeller ,
   logOut,
 } = require("../controller/controller.user");
 const {
@@ -21,7 +21,7 @@ router.get("/verify-email", verifyEmail);
 router.post("/forgotpassword", validateUserPassword, forgotPassword);
 router.get("/reset-password/:id/:token", validateUserPassword, resetPasswordpage);
 router.post("/reset-password/:id/:token",validateUserPassword, resetPassword);
-router.post("/switch-farmer", validateVerified, isAuth, switchfarmer);
+router.post("/switch-seller", validateVerified, isAuth, switchtoSeller );
 router.get("/logout", isAuth, logOut);
 
 module.exports = router;

@@ -285,7 +285,7 @@ exports.logOut = async (req, res) => {
       return res.status(201).json(logout);
 };
 
-exports.switchfarmer = async (req, res) => {
+exports.switchtoSeller = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await findUserByEmail(email);
@@ -297,7 +297,7 @@ exports.switchfarmer = async (req, res) => {
     if (user.role === 'seller') {
       return res.status(400).json({ message: 'User is already a seller' });
     }
-    user.role = 'farmer';
+    user.role = 'seller';
     await user.save();
     res.status(200).json({ message: 'User role changed to seller' });
   } catch (error) {
