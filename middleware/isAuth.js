@@ -27,14 +27,14 @@ exports.isAuth = async (req, res, next) => {
 
 exports.validateRole = async (req, res, next) => {
   try {
-    const user = await User.findById({ _id: req.user.id });
+    const user = await Client.findById({ _id: req.user.id });
     console.log(user.role);
     if (user.role !== "seller") {
       return res.status(401).json({ error: "UNATHORIZED!!!" });
     }
     next();
   } catch (error) {
-    return res.status(500).json({ error: error });
+    return res.status(500).json({ message: error.message });
   }
 };
 

@@ -2,17 +2,12 @@ const Client = require("../models/models.user");
 const Product = require("../models/models.product");
 const cloudinary = require("../utils/cloudinary");
 
-exports.addProduct = async (req, res) => {
+exports.addProduct = async (req, res, next) => {
   try {
     const { description, category, cost, productPicture, isAvailable } =
       req.body;
     const id = req.user.id;
 
-    if (!description || !category || !cost || !productPicture || !isAvailable) {
-      return res.status(409).json({
-        message: "Please Fill All Fields",
-      });
-    }
 
     /* Finding the user by the id. */
     const checkUser = await Client.findById({ _id: id });
@@ -34,9 +29,8 @@ exports.addProduct = async (req, res) => {
     });
 
     return res.status(201).json(new_product);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: error });
+  } catch (error)  {
+    next(error);
   }
 };
 

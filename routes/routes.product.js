@@ -19,6 +19,6 @@ router.post(
 router.get("/findall", isAuth, findProducts);
 router.get("/find/:category", isAuth, similarField);
 router.put("/update/:id", isAuth, validateRole, updateProduct);
-router.put("/delete/:id", isAuth, validateRole, deleteProduct);
+router.delete("/delete/:id", isAuth, validateRole, deleteProduct);
 
 module.exports = router;
