@@ -25,11 +25,11 @@ exports.isAuth = async (req, res, next) => {
   }
 };
 
-exports.validateAdmin = async (req, res, next) => {
+exports.validateRole = async (req, res, next) => {
   try {
     const user = await User.findById({ _id: req.user.id });
     console.log(user.role);
-    if (user.role !== "admin") {
+    if (user.role !== "seller") {
       return res.status(401).json({ error: "UNATHORIZED!!!" });
     }
     next();
@@ -38,7 +38,7 @@ exports.validateAdmin = async (req, res, next) => {
   }
 };
 
-exports.validateUser = async (req, res, next) => {
+exports.validateVerified = async (req, res, next) => {
   try {
     const user = await Client.findOne({ email: req.body.email });
     console.log(user.isVerified);

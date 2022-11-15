@@ -6,6 +6,7 @@ require("dotenv").config();
 const path = require("path");
 const connectDB = require("./config/db.js");
 const user_router = require("./routes/routes.user");
+const product_router = require("./routes/routes.product");
 const ejs = require("ejs");
 const cookieparser = require("cookie-parser");
 const session = require('express-session');
@@ -37,6 +38,7 @@ server.get("/", (req, res) => {
   res.render("home");
 });
 server.use("/api", user_router);
+server.use("/api/v1", product_router);
 
 //Listening to server
 server.listen(port, () => {

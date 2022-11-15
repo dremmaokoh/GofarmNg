@@ -26,6 +26,7 @@ exports.signUp = async (req, res, next) => {
       firstname,
       lastname,
       email,
+      role,
       password,
       confirmPassword,
       phoneNumber,
@@ -37,7 +38,8 @@ exports.signUp = async (req, res, next) => {
       !email ||
       !password ||
       !confirmPassword ||
-      !phoneNumber
+      !phoneNumber ||
+      !role
     ) {
       return res.status(409).json({
         message: "Please Fill All Fields",
@@ -67,6 +69,7 @@ exports.signUp = async (req, res, next) => {
       firstname,
       lastname,
       email,
+      role,
       phoneNumber,
       password: hashedPassword,
       emailtoken: crypto.randomBytes(64).toString("hex"),
@@ -281,3 +284,24 @@ exports.logOut = async (req, res) => {
       };
       return res.status(201).json(logout);
 };
+
+exports.switchfarmer = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await findUserByEmail(email);
+    if (!user) {
+      return res.status(409).json({
+        message: "User not found",
+      });
+    }
+    if (user.role === 'seller') {
+      return res.status(400).json({ message: 'User is already a seller' });
+    }
+    user.role = 'farmer';
+    await user.save();
+    res.status(200).json({ message: 'User role changed to seller' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+

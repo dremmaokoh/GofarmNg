@@ -41,6 +41,12 @@ const userSchema = new mongoose.Schema(
     isVerified: {
       type: Boolean,
     },
+
+    role: {
+      type: String,
+      enum: ["buyer", "seller"],
+      default: "buyer",
+    },
     date: {
       type: Date,
       default: Date.now(),
