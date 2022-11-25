@@ -6,6 +6,15 @@ const farmSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Client",
     },
+    product_rating :[{
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Rating',
+     }],
+     title: {
+      type: String,
+      required: [true, "Please enter a valid name"],
+    },
+
     description: {
       type: String,
       required: [true, "Please enter a valid description"],
@@ -32,12 +41,9 @@ const farmSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
+ 
   },
   {
-    capped: {
-      size: 1024 * 1024 * 1024, // 1GB Maximum size
-      autoIndexId: true,
-    },
     timestamps: true,
   }
 );

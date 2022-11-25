@@ -117,7 +117,10 @@ exports.verifyEmail = async (req, res, next) => {
         message: "Email Verfication Successful",
       };
       return res.status(201).json(user_info);
-    } else {
+    }   if (user.isVerified !== "false") {
+      return res.status(401).json({ error: "Email Already Verified" });
+    }
+     else {
       const no_verify = {
         message: "Email Verfication Not Successful",
       };

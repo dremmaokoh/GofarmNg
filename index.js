@@ -7,6 +7,7 @@ const path = require("path");
 const connectDB = require("./config/db.js");
 const user_router = require("./routes/routes.user");
 const product_router = require("./routes/routes.product");
+const ratings_router = require("./routes/routes.ratings");
 const ejs = require("ejs");
 const cookieparser = require("cookie-parser");
 const session = require('express-session');
@@ -39,6 +40,7 @@ server.get("/", (req, res) => {
 });
 server.use("/api", user_router);
 server.use("/api/v1", product_router);
+server.use("/api/v2", ratings_router);
 
 //Listening to server
 server.listen(port, () => {

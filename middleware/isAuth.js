@@ -10,7 +10,7 @@ exports.isAuth = async (req, res, next) => {
     const token =
       req.headers.authorization && req.headers.authorization.split(" ")[1];
     if (!token) {
-      return res.status(401).json({ error: "Invalid token" });
+      return res.status(401).json({ error: "Please log in to continue" });
     }
 
     const decoded = await jwt.verify(token, JWT_SECRET);

@@ -4,7 +4,7 @@ const cloudinary = require("../utils/cloudinary");
 
 exports.addProduct = async (req, res, next) => {
   try {
-    const { description, category, cost, productPicture, isAvailable } =
+    const { description, category, cost, productPicture, isAvailable, title } =
       req.body;
     const id = req.user.id;
 
@@ -25,6 +25,7 @@ exports.addProduct = async (req, res, next) => {
       category,
       cost,
       isAvailable,
+      title,
       productPicture: result.secure_url,
     });
 
@@ -69,7 +70,7 @@ exports.similarField = async (req, res, next) => {
 exports.updateProduct = async (req, res, next) => {
   const id = req.params.id;
   try {
-    const { description, category, cost, productPicture, isAvailable } =
+    const { description, category, cost, productPicture, isAvailable, title } =
       req.body;
     const new_product = await Product.findByIdAndUpdate(
       { _id: id },
