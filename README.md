@@ -6,6 +6,9 @@
 ### Heroku
 [click here](https://gofarmng.herokuapp.com/)
 
+### Vercel
+[click here](https://gofarm-ng.vercel.app/)
+
 
 
 
