@@ -77,6 +77,19 @@ exports.signUp = async (req, res, next) => {
     });
     const new_user = await user.save();
 
+    await new Promise((resolve,reject) => {
+      transporter.verify(function(error,success) {
+        if (error) {
+          console.log (error);
+          reject(error);
+        } else {
+          console.log ("Server is ready to rake our messages");
+          resolve (success);
+        }
+        });
+      });
+    
+
     const mailOptions = {
       from: ' "Verify your email" <process.env.USER_MAIL>',
       to: user.email,
@@ -88,13 +101,18 @@ exports.signUp = async (req, res, next) => {
             
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+await new Promise ((resolve, reject ) => {
+  transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error);
+        reject (err)
       } else {
         console.log("Email Sent");
+        resolve (info)
       }
     });
+  })
+
     const user_info = {
       message: "Verfication link is sent to your email",
       new_user,
