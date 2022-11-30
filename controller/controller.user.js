@@ -209,6 +209,18 @@ exports.forgotPassword = async (req, res, next) => {
     };
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
 
+    await new Promise((resolve,reject) => {
+      transporter.verify(function(error,success) {
+        if (error) {
+          console.log (error);
+          reject(error);
+        } else {
+          console.log ("Server is ready to rake our messages");
+          resolve (success);
+        }
+        });
+      });
+
     const mailOptions = {
       from: ' "Verify your email" <process.env.USER_MAIL>',
       to: user.email,
@@ -219,13 +231,17 @@ exports.forgotPassword = async (req, res, next) => {
              <a href="${process.env.CLIENT_URL}/api/reset-password/${user._id}/${token}">Reset Your Password</a>`,
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Email Sent");
-      }
-    });
+    await new Promise ((resolve, reject ) => {
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.log(error);
+            reject (err)
+          } else {
+            console.log("Email Sent");
+            resolve (info)
+          }
+        });
+      })
     const user_info = {
       message: "Reset password link is sent to your email",
     };
