@@ -55,19 +55,4 @@ exports.validateVerified = async (req, res, next) => {
   }
 };
 
-exports.validateUserPassword = async (req, res, next) => {
-  try {
-    const user = await Client.findOne({ email: req.body.email });
-    console.log(user.isVerified);
 
-    if (user.isVerified) {
-      next();
-    } else {
-      return res.status(401).json({ error: "User Email Not Verified" });
-    }
-  } catch (error) {
-    return res
-      .status(409)
-      .json({ message: "User Not Verified ||  User Not Found" });
-  }
-};

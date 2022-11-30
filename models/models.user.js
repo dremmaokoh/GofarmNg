@@ -39,7 +39,9 @@ const userSchema = new mongoose.Schema(
     },
 
     isVerified: {
-      type: Boolean,
+      type: String,
+      enum: ["true", "false"],
+      default: "false",
     },
 
     role: {
@@ -51,7 +53,6 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-    
   },
   {
     timestamps: true,

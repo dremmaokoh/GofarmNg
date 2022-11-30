@@ -77,18 +77,17 @@ exports.signUp = async (req, res, next) => {
     });
     const new_user = await user.save();
 
-    await new Promise((resolve,reject) => {
-      transporter.verify(function(error,success) {
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
         if (error) {
-          console.log (error);
+          console.log(error);
           reject(error);
         } else {
-          console.log ("Server is ready to rake our messages");
-          resolve (success);
+          console.log("Server is ready to rake our messages");
+          resolve(success);
         }
-        });
       });
-    
+    });
 
     const mailOptions = {
       from: ' "Verify your email" <process.env.USER_MAIL>',
@@ -98,20 +97,19 @@ exports.signUp = async (req, res, next) => {
               <h2> Thank you for registering on our site  </h2> 
              <h4> Please verify your mail to continue..... </h4>
             <a href="${process.env.CLIENT_URL}/api/verify-email?token=${user.emailtoken}">Verify Your Email</a>   `,
-            
     };
 
-await new Promise ((resolve, reject ) => {
-  transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-        reject (err)
-      } else {
-        console.log("Email Sent");
-        resolve (info)
-      }
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+          reject(err);
+        } else {
+          console.log("Email Sent");
+          resolve(info);
+        }
+      });
     });
-  })
 
     const user_info = {
       message: "Verfication link is sent to your email",
@@ -135,10 +133,10 @@ exports.verifyEmail = async (req, res, next) => {
         message: "Email Verfication Successful",
       };
       return res.status(201).json(user_info);
-    }   if (user.isVerified !== "false") {
-      return res.status(401).json({ error: "Email Already Verified" });
     }
-     else {
+    if (user.isVerified !== "false") {
+      return res.status(401).json({ error: "Email Already Verified" });
+    } else {
       const no_verify = {
         message: "Email Verfication Not Successful",
       };
@@ -209,17 +207,17 @@ exports.forgotPassword = async (req, res, next) => {
     };
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
 
-    await new Promise((resolve,reject) => {
-      transporter.verify(function(error,success) {
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
         if (error) {
-          console.log (error);
+          console.log(error);
           reject(error);
         } else {
-          console.log ("Server is ready to rake our messages");
-          resolve (success);
+          console.log("Server is ready to rake our messages");
+          resolve(success);
         }
-        });
       });
+    });
 
     const mailOptions = {
       from: ' "Verify your email" <process.env.USER_MAIL>',
@@ -231,17 +229,17 @@ exports.forgotPassword = async (req, res, next) => {
              <a href="${process.env.CLIENT_URL}/api/reset-password/${user._id}/${token}">Reset Your Password</a>`,
     };
 
-    await new Promise ((resolve, reject ) => {
+    await new Promise((resolve, reject) => {
       transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            console.log(error);
-            reject (err)
-          } else {
-            console.log("Email Sent");
-            resolve (info)
-          }
-        });
-      })
+        if (error) {
+          console.log(error);
+          reject(err);
+        } else {
+          console.log("Email Sent");
+          resolve(info);
+        }
+      });
+    });
     const user_info = {
       message: "Reset password link is sent to your email",
     };
@@ -315,11 +313,11 @@ exports.resetPassword = async (req, res, next) => {
 };
 
 exports.logOut = async (req, res) => {
-    res.clearCookie ('access_token')
-    const logout = {
-        message: "Logout Successful",
-      };
-      return res.status(201).json(logout);
+  res.clearCookie("access_token");
+  const logout = {
+    message: "Logout Successful",
+  };
+  return res.status(201).json(logout);
 };
 
 exports.switchtoSeller = async (req, res) => {
@@ -331,14 +329,13 @@ exports.switchtoSeller = async (req, res) => {
         message: "User not found",
       });
     }
-    if (user.role === 'seller') {
-      return res.status(400).json({ message: 'User is already a seller' });
+    if (user.role === "seller") {
+      return res.status(400).json({ message: "User is already a seller" });
     }
-    user.role = 'seller';
+    user.role = "seller";
     await user.save();
-    res.status(200).json({ message: 'User role changed to seller' });
+    res.status(200).json({ message: "User role changed to seller" });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 };
-
