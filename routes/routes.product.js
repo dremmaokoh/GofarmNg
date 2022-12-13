@@ -16,8 +16,8 @@ router.post(
   upload.single("productPicture"),
   addProduct
 );
-router.get("/findall", isAuth, findProducts);
-router.get("/find/:category", isAuth, similarField);
+router.get("/findall", findProducts);
+router.get("/find/:category",  similarField);
 router.put("/update/:id", isAuth, validateRole, updateProduct);
 router.delete("/delete/:id", isAuth, validateRole, deleteProduct);
 
