@@ -37,14 +37,13 @@ exports.addProduct = async (req, res, next) => {
 
 exports.findProduct = async (req, res, next) => {
   try {
-  
-    const product = await Product.findOne ({_id :req.params.id}) 
-    if (product) { res
-      .status(200)
-      .send( product );
-    //  res.status(404).send({error:"no product found"})
-    }
-  
+    const id = req.params.id;
+    const find_product = await Product.findById({ _id: id });
+    const product_find = {
+      message: "Product Found",
+      find_product,
+    };
+    return res.status(200).json(product_find);
   } catch (error) {
     next(error);
   }
