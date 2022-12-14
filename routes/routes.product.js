@@ -4,6 +4,7 @@ const {
   addProduct,
   findProducts,
   similarField,
+  findProduct,
   updateProduct,
   deleteProduct,
 } = require("../controller/controller.product");
@@ -16,6 +17,7 @@ router.post(
   upload.single("productPicture"),
   addProduct
 );
+router.get("/findproduct", findProduct);
 router.get("/findall", findProducts);
 router.get("/find/:category",  similarField);
 router.put("/update/:id", isAuth, validateRole, updateProduct);

@@ -35,6 +35,21 @@ exports.addProduct = async (req, res, next) => {
   }
 };
 
+exports.findProduct = async (req, res, next) => {
+  try {
+  
+    const product = await Product.findOne ({_id :req.params.id}) 
+    if (!product) {
+      res.status(404).send({error:"no product found"})
+    }
+   res
+      .status(200)
+      .send({ product });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.findProducts = async (req, res, next) => {
   try {
     const { page, limit } = req.query;
