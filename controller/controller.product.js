@@ -44,7 +44,7 @@ exports.findProduct = async (req, res, next) => {
     }
    res
       .status(200)
-      .send({ product });
+      .send( product );
   } catch (error) {
     next(error);
   }
