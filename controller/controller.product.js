@@ -56,23 +56,15 @@ exports.findlatestproduct = async (req, res
   
       // If the page is not applied in query
       if (!page) {
-  
-        // Make the Default value one
         page = 1;
       }
   
       if (!size) {
         size = 10;
       }
-  
-      // We have to make it integer because
-      // the query parameter passed is string
       const limit = parseInt(size);
-  
-      // We pass 1 for sorting data in
-      // descending order using ids
       const latest = await Product.find().sort(
-        { votes: 1, _id: -1 }).limit(limit)
+        {  _id: -1 }).limit(limit)
   
       res.send({
         page,
