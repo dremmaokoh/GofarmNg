@@ -339,3 +339,33 @@ exports.switchtoSeller = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.findAllUsers = async (req, res
+  ) => {
+    try {
+      let { page, size, sort } = req.query;
+  
+      
+      if (!page) {
+        page = 1;
+      }
+  
+      if (!size) {
+        size = 10;
+      }
+      const limit = parseInt(size);
+      const users = await Client.find().sort(
+        {  _id: 1 }).limit(limit)
+  
+      res.send({
+        page,
+        size,
+        Info: users,
+      });
+    }
+    catch (error) {
+      res.sendStatus(500);
+    }
+    
+  };
+

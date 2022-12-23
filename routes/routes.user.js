@@ -7,6 +7,7 @@ const {
   resetPassword,
   resetPasswordpage,
   switchtoSeller,
+  findAllUsers,
   logOut,
 } = require("../controller/controller.user");
 const { isAuth, validateVerified } = require("../middleware/isAuth");
@@ -14,6 +15,7 @@ const { isAuth, validateVerified } = require("../middleware/isAuth");
 router.post("/register", signUp);
 router.post("/login", validateVerified, loginUser);
 router.get("/verify-email", verifyEmail);
+router.get("/findusers", findAllUsers);
 router.post("/forgotpassword", validateVerified, forgotPassword);
 router.get("/reset-password/:id/:token", resetPasswordpage);
 router.post("/reset-password/:id/:token", resetPassword);
