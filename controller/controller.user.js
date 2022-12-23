@@ -369,3 +369,16 @@ exports.findAllUsers = async (req, res
     
   };
 
+  exports.finduser = async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const find_user = await Product.findById({ _id: id });
+      const user_find = {
+        message: "User Found",
+        find_user,
+      };
+      return res.status(200).json(user_find);
+    } catch (error) {
+      next(error);
+    }
+  };
