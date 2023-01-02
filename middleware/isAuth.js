@@ -43,7 +43,7 @@ exports.validateVerified = async (req, res, next) => {
     const user = await Client.findOne({ email: req.body.email });
     console.log(user.isVerified);
 
-    if (user.isVerified) {
+    if (user.isVerified == "true") {
       next();
     } else {
       return res
