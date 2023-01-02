@@ -41,8 +41,13 @@ exports.validateRole = async (req, res, next) => {
 exports.validateVerified = async (req, res, next) => {
   try {
     const user = await Client.findOne({ email: req.body.email });
+  
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid Email",
+      });
+    }
     console.log(user.isVerified);
-
     if (user.isVerified == "true") {
       next();
     } else {
