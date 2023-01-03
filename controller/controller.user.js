@@ -371,6 +371,7 @@ exports.findAllUsers = async (req, res
 
   exports.finduser = async (req, res, next) => {
     try {
+      
       const id = req.params.id;
       const find_user = await Client.findById({ _id: id });
       const user_find = {
