@@ -145,3 +145,27 @@ exports.deleteProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+
+exports.getTopProducts = async (req, res, next) => {
+  try {
+    // using aggregate function to get top 5 products
+      const products = await Product.aggregate([
+          {
+              $sort: {
+                isAvailable: -1,
+              },
+          },
+          {
+              $limit: 5,
+          },
+      ]);
+      return res.status(200).json({
+          message: "Top 5 products",
+          products,
+      });
+
+  } catch (error) {
+      next(error);
+  }
+};

@@ -7,7 +7,8 @@ const {
   findProduct,
   updateProduct,
   deleteProduct,
-  findlatestproduct
+  findlatestproduct,
+  getTopProducts
 } = require("../controller/controller.product");
 const { isAuth, validateRole } = require("../middleware/isAuth");
 
@@ -20,6 +21,7 @@ router.post(
 );
 router.get("/findproduct/:id", findProduct);
 router.get("/findall", findProducts);
+router.get("/findtoproduct", getTopProducts);
 router.get("/find/:category",  similarField);
 router.get("/findnew",  findlatestproduct);
 router.put("/update/:id", isAuth, validateRole, updateProduct);

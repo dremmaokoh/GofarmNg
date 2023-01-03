@@ -44,7 +44,7 @@ exports.validateVerified = async (req, res, next) => {
   
     if (!user) {
       return res.status(400).json({
-        message: "Invalid Email",
+        message: "Invalid Email"
       });
     }
     console.log(user.isVerified);
