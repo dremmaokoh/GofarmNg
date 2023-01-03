@@ -153,7 +153,7 @@ exports.getTopProducts = async (req, res, next) => {
       const products = await Product.aggregate([
           {
               $sort: {
-                isAvailable: -1,
+                isAvailable: 1,
               },
           },
           {
